@@ -1,1 +1,1 @@
-console.log("carregado main board")
+console.log("carregado main board.")
