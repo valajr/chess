@@ -1,4 +1,3 @@
-// king, pawn, tower, bishop, knight, queen
 const DIRECTION = {'UP': 0, 'RIGHT': 1, 'DOWN': 2, 'LEFT': 3};
 
 class ChessPiece {
@@ -111,27 +110,27 @@ class Pawn extends ChessPiece {
 class Tower extends ChessPiece {
     constructor(team, direction=DIRECTION.UP) {
         super("tower", team, direction);
-        this._line_moves   = this.moveInterpreter(['u','r','d','l']);
+        this._line_moves = this.moveInterpreter(['u','r','d','l']);
     }
 }
 
 class Bishop extends ChessPiece {
     constructor(team, direction=DIRECTION.UP) {
         super("bishop", team, direction);
-        this._line_moves   = this.moveInterpreter(['ul','ur','dl','dr']);
+        this._line_moves = this.moveInterpreter(['ul','ur','dl','dr']);
     }
 }
 
 class Knight extends ChessPiece {
     constructor(team, direction=DIRECTION.UP) {
         super("knight", team, direction);
-        this._line_moves   = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
+        this._line_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
     }
 }
 
 class Queen extends ChessPiece {
     constructor(team, direction=DIRECTION.UP) {
         super("queen", team, direction);
-        this._line_moves   = this.moveInterpreter(['u','r','d','l','ul','ur','dl','dr']);
+        this._line_moves = this.moveInterpreter(['u','r','d','l','ul','ur','dl','dr']);
     }
 }
