@@ -97,7 +97,6 @@ class King extends ChessPiece {
     constructor(team, direction=DIRECTION.UP) {
         super("king", team, direction);
         this._static_moves = this.moveInterpreter(['ul','u','ur','r','dr','d','dl','l']);
-        this._attack_moves = null;
     }
 }
 
