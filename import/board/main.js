@@ -11,8 +11,8 @@ function initiateTable(board, row_amount, col_amount) {
         let board_row = document.createElement("tr");
         for(let c = 0; c < col_amount; c++) {
             let row_data = document.createElement("td");
-            sum = r*row_amount + c;
-            if(row_amount%2) {
+            sum = r*col_amount + c;
+            if(col_amount%2) {
                 if(sum%2) {
                     row_data.appendChild(createTileButton(sum, "black"));
                 }
@@ -48,7 +48,7 @@ function placePiece(piece, team, tile) {
 
 documentReady(()=>{
     let board = document.getElementById("boardTable");
-    initiateTable(board, 3, 3);
+    initiateTable(board, 8, 8);
     placePiece("bishop", "black", 2);
     placePiece("queen", "black", 3);
 });
