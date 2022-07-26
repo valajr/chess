@@ -8,14 +8,23 @@ class ChessPiece {
     _line_moves   = [];
     _attack_moves = null;
 
-    constructor(image, team, direction) {
+    constructor(image, team, direction, id) {
         this.team = team;
         this.direction = direction;
         this._image_src = image;
+        this._id = id;
     }
 
     get image() {
         return `static/img/${this._image_src}_${this.team}.png`; 
+    }
+
+    getId() {
+        return this._id;
+    }
+
+    setId(id) {
+        this._id = id;
     }
 
     setDirection(direction) {
@@ -85,10 +94,10 @@ class ChessPiece {
         let moves = [];
         for(let m in moveset) {
             let move = moveset[m];
-            let us = move.match(/u/g).length; // up
-            let rs = move.match(/r/g).length; // right
-            let ds = move.match(/d/g).length; // down
-            let ls = move.match(/l/g).length; // left
+            let us = move.match(/u/g)?.length || 0; // up
+            let rs = move.match(/r/g)?.length || 0; // right
+            let ds = move.match(/d/g)?.length || 0; // down
+            let ls = move.match(/l/g)?.length || 0; // left
 
             moves.push([-ls+rs, -us+ds]);
         }
@@ -98,44 +107,44 @@ class ChessPiece {
 }
 
 class King extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("king", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("king", team, direction, id);
         this._static_moves = this.moveInterpreter(['ul','u','ur','r','dr','d','dl','l']);
     }
 }
 
 class Pawn extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("pawn", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("pawn", team, direction, id);
         this._static_moves = this.moveInterpreter(['u']);
         this._attack_moves = this.moveInterpreter(['ul','ur']);
     }
 }
 
 class Tower extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("tower", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("tower", team, direction, id);
         this._line_moves = this.moveInterpreter(['u','r','d','l']);
     }
 }
 
 class Bishop extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("bishop", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("bishop", team, direction, id);
         this._line_moves = this.moveInterpreter(['ul','ur','dl','dr']);
     }
 }
 
 class Knight extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("knight", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("knight", team, direction, id);
         this._line_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
     }
 }
 
 class Queen extends ChessPiece {
-    constructor(team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("queen", team, direction);
+    constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
+        super("queen", team, direction, id);
         this._line_moves = this.moveInterpreter(['u','r','d','l','ul','ur','dl','dr']);
     }
 }
