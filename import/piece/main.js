@@ -48,7 +48,7 @@ class ChessPiece {
             let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
 
             if(possibleMove(tile)) {
-                possible_moves = tile;
+                possible_moves.push(tile);
             }
         }
 
@@ -59,7 +59,7 @@ class ChessPiece {
                 let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
     
                 if(possibleMove(tile)) {
-                    possible_moves = tile;
+                    possible_moves.push(tile);
                 }
             }
         }
