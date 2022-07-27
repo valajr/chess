@@ -31,7 +31,7 @@ function initiateTable(board, row_amount, col_amount) {
             }
             
             board_row.appendChild(row_data);
-            row[c] = 0;
+            row[c] = ChessPiece.EMPTY_TILE;
         }
         board_js[r].push(row);
         board.appendChild(board_row);
@@ -41,7 +41,7 @@ function initiateTable(board, row_amount, col_amount) {
 
 function placePiece(piece, tile) {
     let button_tile = document.getElementById(tile)
-    button_tile.innerHTML = `<img src = ${piece.image}>`;
+    button_tile.innerHTML = `<img src = ${piece.image} height=60 width=60>`;
 }
 
 documentReady(()=>{
