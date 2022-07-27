@@ -1,54 +1,68 @@
-function createTileButton(id, color) {
-    let button_tile = document.createElement("button");
-    button_tile.setAttribute("id", id)
-    button_tile.setAttribute("class", color)
-    button_tile.innerHTML = '<img src = "static/img/empty.png">';
-    return button_tile;
-}
+class Board {
+    board_js = [];
 
-function initiateTable(board, row_amount, col_amount) {
-    let board_js = [];
-    let row = [];
-    for(let r = 0; r < row_amount; r++) {
-        board_js[r] = [];
-        let board_row = document.createElement("tr");
-        for(let c = 0; c < col_amount; c++) {
-            let row_data = document.createElement("td");
-            sum = r*col_amount + c;
-            if(r%2 && !(col_amount%2)) {
-                if(sum%2) {
-                    row_data.appendChild(createTileButton(sum, "white"));
+    constructor(row_amount, col_amount) {
+        this.row_amount = row_amount;
+        this.col_amount = col_amount;
+        this.board_html = document.getElementById("boardTable");
+        this.board_js = this.initiateTable();
+    }
+
+    createTileButton(id, color) {
+        let button_tile = document.createElement("button");
+        button_tile.setAttribute("id", id)
+        button_tile.setAttribute("class", color)
+        button_tile.innerHTML = '<img src = "static/img/empty.png">';
+        return button_tile;
+    }
+
+    initiateTable() {
+        let board_js = [];
+        for(let r = 0; r < this.row_amount; r++) {
+            let row = [];
+            let board_row = document.createElement("tr");
+            for(let c = 0; c < this.col_amount; c++) {
+                let row_data = document.createElement("td");
+                let sum = r*this.col_amount + c;
+                if(r%2 && !(this.col_amount%2)) {
+                    if(sum%2) {
+                        row_data.appendChild(this.createTileButton(sum, "white"));
+                    }
+                    else {
+                        row_data.appendChild(this.createTileButton(sum, "black"));
+                    }
+                }
+                else if(sum%2){
+                    row_data.appendChild(this.createTileButton(sum, "black"));
                 }
                 else {
-                    row_data.appendChild(createTileButton(sum, "black"));
+                    row_data.appendChild(this.createTileButton(sum, "white"));                
                 }
+                
+                board_row.appendChild(row_data);
+                row[c] = ChessPiece.EMPTY_TILE;
             }
-            else if(sum%2){
-                row_data.appendChild(createTileButton(sum, "black"));
-            }
-            else {
-                row_data.appendChild(createTileButton(sum, "white"));                
-            }
-            
-            board_row.appendChild(row_data);
-            row[c] = ChessPiece.EMPTY_TILE;
+            board_js[r] = row;
+            this.board_html.appendChild(board_row);
         }
-        board_js[r].push(row);
-        board.appendChild(board_row);
+        return board_js;
     }
-    return board_js;
-}
 
-function placePiece(piece, tile) {
-    let button_tile = document.getElementById(tile)
-    button_tile.innerHTML = `<img src = ${piece.image} height=60 width=60>`;
+    placePiece(piece) {
+        let id = piece.getId();
+        let row = parseInt(id/this.row_amount, 10);
+        let col = id - row*this.col_amount;
+        let button_tile = document.getElementById(id);
+        button_tile.innerHTML = `<img src = ${piece.image} height=60 width=60>`;
+        this.board_js[row][col] = piece;
+    }
+
 }
 
 documentReady(()=>{
-    let board_html = document.getElementById("boardTable");
-    let board_js = initiateTable(board_html, 8, 8);
-    white_king = new King(2);
-    placePiece(white_king, 2);
-    aux = white_king.getPossibleMoves([0,2], board_js);
+    let board = new Board(8, 8);
+    let white_king = new King(2);
+    board.placePiece(white_king);
+    let aux = white_king.getPossibleMoves([0,2], board.board_js);
     console.log(aux);
 });
