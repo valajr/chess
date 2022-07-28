@@ -5,8 +5,10 @@ table {
 }
 
 button {
-    padding: none;
+    padding: 2px;
     border: none;
+    height: 65px;
+    width: 65px;
 }
 
 .white {

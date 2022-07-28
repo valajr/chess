@@ -12,11 +12,13 @@ class Board {
         let button_tile = document.createElement("button");
         button_tile.setAttribute("id", id)
         button_tile.setAttribute("class", color)
-        button_tile.innerHTML = '<img src = "static/img/empty.png">';
+        button_tile.setAttribute("onClick", `showPossibleMoves(${id})`);
+        button_tile.innerHTML = '<img src = "static/img/empty.png" width=100%>';
         return button_tile;
     }
 
     initiateTable() {
+        this.board_html.innerHTML = '';
         let board_js = [];
         for(let r = 0; r < this.row_amount; r++) {
             let row = [];
@@ -36,7 +38,7 @@ class Board {
                     row_data.appendChild(this.createTileButton(sum, "black"));
                 }
                 else {
-                    row_data.appendChild(this.createTileButton(sum, "white"));                
+                    row_data.appendChild(this.createTileButton(sum, "white"));
                 }
                 
                 board_row.appendChild(row_data);
@@ -50,19 +52,27 @@ class Board {
 
     placePiece(piece) {
         let id = piece.getId();
+        let button_tile = document.getElementById(id);
         let row = parseInt(id/this.row_amount, 10);
         let col = id - row*this.col_amount;
-        let button_tile = document.getElementById(id);
-        button_tile.innerHTML = `<img src = ${piece.image} height=60 width=60>`;
+        button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
         this.board_js[row][col] = piece;
     }
 
 }
 
+function showPossibleMoves(id) {
+    console.log(id);
+}
+
 documentReady(()=>{
     let board = new Board(8, 8);
     let white_king = new King(2);
+    let white_tower = new Tower(1);
     board.placePiece(white_king);
+    board.placePiece(white_tower);
     let aux = white_king.getPossibleMoves([0,2], board.board_js);
+    console.log(aux);
+    aux = white_tower.getPossibleMoves([0, 1], board.board_js);
     console.log(aux);
 });
