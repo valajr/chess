@@ -8,11 +8,52 @@ class Board {
         this.board_js = this.initiateTable();
     }
 
+    idToPosition(id) {
+        let row = parseInt(id/this.row_amount);
+        let col = id - row*this.col_amount;
+        return [row, col];
+    }
+
+    positionToId(position) {
+        let id = position[0]*this.row_amount + position[1];
+        return id;
+    }
+    
+    deletePossibleMoves() {
+        let clicked_tiles = document.getElementsByClassName("clicked");
+        while(clicked_tiles.length) {
+            clicked_tiles[0].style.borderColor = "transparent";
+            clicked_tiles[0].classList.remove("clicked");
+        }
+    }
+
+    showPossibleMoves(id) {
+        this.deletePossibleMoves();
+
+        let button_tile = document.getElementById(id);
+        let position = this.idToPosition(id);
+
+        if(this.board_js[position[0]][position[1]] != ChessPiece.EMPTY_TILE) {
+            button_tile.style.borderColor = "black";
+            button_tile.classList.add("clicked");
+            let possible_moves = this.board_js[position[0]][position[1]].getPossibleMoves([position[0], position[1]], this.board_js);
+            for(let m in possible_moves) {
+                let tile = this.positionToId(possible_moves[m]);
+                button_tile = document.getElementById(tile);
+                button_tile.style.borderColor = "black";
+                button_tile.classList.add("clicked");
+            }
+        }
+    }
+
     createTileButton(id, color) {
         let button_tile = document.createElement("button");
-        button_tile.setAttribute("id", id)
-        button_tile.setAttribute("class", color)
-        button_tile.setAttribute("onClick", `showPossibleMoves(${id})`);
+        button_tile.setAttribute("id", id);
+        button_tile.setAttribute("class", color);
+        button_tile.classList.add("tile");
+        button_tile.addEventListener("click", () => {
+            this.showPossibleMoves(id);
+        });
         button_tile.innerHTML = '<img src = "static/img/empty.png" width=100%>';
         return button_tile;
     }
@@ -51,18 +92,14 @@ class Board {
     }
 
     placePiece(piece) {
+        this.deletePossibleMoves();
         let id = piece.getId();
         let button_tile = document.getElementById(id);
-        let row = parseInt(id/this.row_amount, 10);
-        let col = id - row*this.col_amount;
+        let position = this.idToPosition(id);
         button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
-        this.board_js[row][col] = piece;
+        this.board_js[position[0]][position[1]] = piece;
     }
 
-}
-
-function showPossibleMoves(id) {
-    console.log(id);
 }
 
 documentReady(()=>{
@@ -71,8 +108,4 @@ documentReady(()=>{
     let white_tower = new Tower(1);
     board.placePiece(white_king);
     board.placePiece(white_tower);
-    let aux = white_king.getPossibleMoves([0,2], board.board_js);
-    console.log(aux);
-    aux = white_tower.getPossibleMoves([0, 1], board.board_js);
-    console.log(aux);
 });

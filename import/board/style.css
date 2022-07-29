@@ -1,14 +1,14 @@
 table {
-    border: 3px;
-    border-style: solid;
-    border-color: black;
+    border: 3px solid black;
+    border-spacing: none;
+    border-collapse: collapse;
+    padding: none;
 }
 
-button {
-    padding: 2px;
-    border: none;
-    height: 65px;
-    width: 65px;
+.tile {
+    border: 3px solid transparent;
+    height: 60px;
+    width: 60px;
 }
 
 .white {
