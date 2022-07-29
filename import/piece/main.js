@@ -8,11 +8,11 @@ class ChessPiece {
     _line_moves   = [];
     _attack_moves = null;
 
-    constructor(image, team, direction, id) {
+    constructor(id, image, team, direction) {
+        this._id = id;
         this.team = team;
         this.direction = direction;
         this._image_src = image;
-        this._id = id;
     }
 
     get image() {
@@ -112,14 +112,14 @@ class ChessPiece {
 
 class King extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("king", team, direction, id);
+        super(id, "king", team, direction);
         this._static_moves = this.moveInterpreter(['ul','u','ur','r','dr','d','dl','l']);
     }
 }
 
 class Pawn extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("pawn", team, direction, id);
+        super(id, "pawn", team, direction);
         this._static_moves = this.moveInterpreter(['u']);
         this._attack_moves = this.moveInterpreter(['ul','ur']);
     }
@@ -127,28 +127,28 @@ class Pawn extends ChessPiece {
 
 class Tower extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("tower", team, direction, id);
+        super(id, "tower", team, direction);
         this._line_moves = this.moveInterpreter(['u','r','d','l']);
     }
 }
 
 class Bishop extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("bishop", team, direction, id);
+        super(id, "bishop", team, direction);
         this._line_moves = this.moveInterpreter(['ul','ur','dl','dr']);
     }
 }
 
 class Knight extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("knight", team, direction, id);
+        super(id, "knight", team, direction);
         this._line_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
     }
 }
 
 class Queen extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
-        super("queen", team, direction, id);
+        super(id, "queen", team, direction);
         this._line_moves = this.moveInterpreter(['u','r','d','l','ul','ur','dl','dr']);
     }
 }
