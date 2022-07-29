@@ -16,7 +16,11 @@ class ChessPiece {
     }
 
     get image() {
-        return `static/img/${this._image_src}_${this.team}.png`; 
+        return ChessPiece.getImage(this._image_src, this.team);
+    }
+
+    static getImage(src, team) {
+        return `static/img/${src}_${team}.png`;
     }
 
     getId() {
