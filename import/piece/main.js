@@ -43,9 +43,9 @@ class ChessPiece {
         // check if piece in tile is from another team
         let canAttack = (tl) => boardMapping[tl[0]][tl[1]]?.team !== this.team;
 
-        let possibleMove = (tl) => existTile(tl) && (emptyTile(tl) || canAttack(tl));
+        let possibleMove   = (tl, only_attack) => existTile(tl) && ((emptyTile(tl) && !only_attack) || (!emptyTile(tl) && canAttack(tl)));
         let possible_moves = [];
-        
+
         // iterate static_moves and check every move
         for(let m in this._static_moves) {
             let move = this.rotateMoveByDirection(this._static_moves[m]);
@@ -62,7 +62,7 @@ class ChessPiece {
                 let move = this.rotateMoveByDirection(this._attack_moves[m]);
                 let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
     
-                if(possibleMove(tile)) {
+                if(possibleMove(tile, true)) {
                     possible_moves.push(tile);
                 }
             }
@@ -75,6 +75,7 @@ class ChessPiece {
 
             while(possibleMove(tile)) {
                 possible_moves.push(tile);
+                if(!emptyTile(tile) && canAttack(tile)) break;
                 tile = [tile[0] + move[0], tile[1] + move[1]]; // get next tile move based on previous tile
             }
         }
@@ -87,11 +88,11 @@ class ChessPiece {
             case DIRECTION.RIGHT:
                 return [ move[0], -move[1]];
             case DIRECTION.DOWN:
-                return [-move[0], -move[1]];
+                return [-move[1], -move[0]];
             case DIRECTION.LEFT:
                 return [-move[0],  move[1]];
         }
-        return move;
+        return [move[1], move[0]];
     }
 
     moveInterpreter(moveset) {
@@ -142,7 +143,7 @@ class Bishop extends ChessPiece {
 class Knight extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "knight", team, direction);
-        this._line_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
+        this._static_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
     }
 }
 

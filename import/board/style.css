@@ -24,3 +24,7 @@ table {
 .white:hover, .black:hover{
     background-color: var(--hover-background-color);
 }
+
+.tile > img {
+    transform: scale(1.4);
+}
