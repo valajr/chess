@@ -157,11 +157,85 @@ function showMenu() {
     menu.appendChild(button);
 }
 
+function classicalChess(board) {
+    let white_team = [];
+
+    let wking = new King(60, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wking);
+    let wq = new Queen(59, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wq);
+    let wb_01 = new Bishop(58, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wb_01);
+    let wb_02 = new Bishop(61, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wb_02);
+    let wk_01 = new Knight(57, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wk_01);
+    let wk_02 = new Knight(62, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wk_02);
+    let wt_01 = new Tower(56, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wt_01);
+    let wt_02 = new Tower(63, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wt_02);
+    let wp_01 = new Pawn(48, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_01);
+    let wp_02 = new Pawn(49, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_02);
+    let wp_03 = new Pawn(50, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_03);
+    let wp_04 = new Pawn(51, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_04);
+    let wp_05 = new Pawn(52, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_05);
+    let wp_06 = new Pawn(53, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_06);
+    let wp_07 = new Pawn(54, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_07);
+    let wp_08 = new Pawn(55, CHESSTEAM.WHITE, DIRECTION.UP);
+    board.placePiece(wp_08);
+    white_team.push(wking, wq, wb_01, wb_02, wk_01, wk_02, wt_01, wt_02, wp_01, wp_02, wp_03, wp_04, wp_05, wp_06, wp_07, wp_08);
+
+    let black_team = [];
+
+    let bking = new King(4, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bking);
+    let bq = new Queen(3, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bq);
+    let bb_01 = new Bishop(2, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bb_01);
+    let bb_02 = new Bishop(5, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bb_02);
+    let bk_01 = new Knight(1, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bk_01);
+    let bk_02 = new Knight(6, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bk_02);
+    let bt_01 = new Tower(0, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bt_01);
+    let bt_02 = new Tower(7, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bt_02);
+    let bp_01 = new Pawn(8, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_01);
+    let bp_02 = new Pawn(9, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_02);
+    let bp_03 = new Pawn(10, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_03);
+    let bp_04 = new Pawn(11, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_04);
+    let bp_05 = new Pawn(12, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_05);
+    let bp_06 = new Pawn(13, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_06);
+    let bp_07 = new Pawn(14, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_07);
+    let bp_08 = new Pawn(15, CHESSTEAM.BLACK, DIRECTION.DOWN);
+    board.placePiece(bp_08);
+    black_team.push(bking, bq, bb_01, bb_02, bk_01, bk_02, bt_01, bt_02, bp_01, bp_02, bp_03, bp_04, bp_05, bp_06, bp_07, bp_08);
+
+    return [white_team, black_team]
+}
+
 documentReady(()=>{
-    // let board = new Board(8, 8);
-    // let white_king = new King(2);
-    // let white_tower = new Tower(1);
-    // board.placePiece(white_king);
-    // board.placePiece(white_tower);
-    showMenu();
+    let board = new Board(8, 8);
+    let [white_team, black_team] = classicalChess(board);
+    console.log(white_team);
+    console.log(black_team);
 });
