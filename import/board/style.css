@@ -28,7 +28,7 @@ table {
 .tile > img {
     --scale-transform: 1.4;
     transform: scale(var(--scale-transform));
-    transition: transform 120ms ease, filter 180ms ease;
+    transition: transform 120ms ease, filter 120ms ease;
 }
 
 .clicked > img {
