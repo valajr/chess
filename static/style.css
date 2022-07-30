@@ -1,0 +1,52 @@
+@font-face {
+    font-family: uper-left-down;
+    src: url(font/Upper_Left_Down.ttf);
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 70px;
+    text-shadow: 2px 2px 5px gray;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+#menuDiv input {
+    height: 26px;
+}
+#menuDiv button {
+    height: 32px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#menuDiv, #boardDiv {
+    margin: 30px;
+    border: 1px solid gray;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: lightgray 2px 2px 4px;
+}

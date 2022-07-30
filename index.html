@@ -19,9 +19,20 @@
         <script src="static/main.js"></script>
     </head>
     <body>
-        <div id="boardDiv">
-            <table id="boardTable"></table>
-            <ul id="menu"></ul>
+        <div class="centered">
+            <div id="menuDiv">
+                <h3 id="title">MANUAL CHESS</h3>
+                <form onsubmit="return intiateGame(this)">
+                    <label for="inpWidth">Width</label>
+                    <input id="inpWidth" type="number" value="8">
+                    <label for="inpHeight">Height</label>
+                    <input id="inpHeight" type="number" value="8">
+                    <button type="submit">Começar</button>
+                </form>
+            </div>
+            <div id="boardDiv" hidden>
+                <table id="boardTable"></table>
+            </div>
         </div>
     </body>
 </html>

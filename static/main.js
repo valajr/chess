@@ -1,1 +1,14 @@
-console.log("Carregado main static")
+function intiateGame(form) {
+    try {
+        startBoard(form.inpWidth.value, form.inpHeight.value);
+    }
+    catch {}
+    hideMenu();
+
+    return false;
+}
+
+function hideMenu() {
+    document.getElementById("menuDiv").setAttribute('hidden', true);
+    document.getElementById("boardDiv").removeAttribute('hidden');
+}

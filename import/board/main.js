@@ -137,24 +137,6 @@ class Board {
             this.board_js[new_position[0]][new_position[1]] = piece;
         }
     }
-
-}
-
-function deleteMenu(menu) {
-    rows = document.getElementById("row").value;
-    columns = document.getElementById("col").value;
-    menu.remove();
-}
-
-function showMenu() {
-    let menu = document.getElementById("menu");
-    menu.innerHTML = "Type the quantity of rows and columns: <br>Row: <input type='number' id='row'> <br>Col: <input type='number' id='col'>";
-    let button = document.createElement("button");
-    button.setAttribute("id", "collector");
-    button.addEventListener("click", () => {
-        deleteMenu(menu);
-    });
-    menu.appendChild(button);
 }
 
 function classicalChess(board) {
@@ -233,9 +215,9 @@ function classicalChess(board) {
     return [white_team, black_team]
 }
 
-documentReady(()=>{
-    let board = new Board(8, 8);
+function startBoard(width, height) {
+    let board = new Board(height, width);
     let [white_team, black_team] = classicalChess(board);
     console.log(white_team);
     console.log(black_team);
-});
+}
