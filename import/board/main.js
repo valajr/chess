@@ -35,7 +35,6 @@ class Board {
         let button_tile = document.getElementById(id);
         let showed_tiles = document.getElementsByClassName("showed");
         let position = this.idToPosition(id);
-        console.log(position);
 
         let flag = false;
         for(let i in showed_tiles) {
@@ -65,7 +64,6 @@ class Board {
                 button_tile.style.borderColor = "black";
                 button_tile.classList.add("clicked", "showed");
                 let possible_moves = piece.getPossibleMoves([position[0], position[1]], this.board_js);
-                console.log(possible_moves);
                 for(let m in possible_moves) {
                     let tile = this.positionToId(possible_moves[m]);
                     button_tile = document.getElementById(tile);
@@ -229,6 +227,4 @@ function startBoard(width, height) {
     columns = width;
     board   = new Board(rows, columns);
     let [white_team, black_team] = classicalChess(board);
-    console.log(white_team);
-    console.log(black_team);
 }
