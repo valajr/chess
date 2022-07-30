@@ -13,13 +13,13 @@ class Board {
     }
 
     idToPosition(id) {
-        let row = parseInt(id/this.row_amount);
+        let row = parseInt(id/this.col_amount);
         let col = id - row*this.col_amount;
         return [row, col];
     }
 
     positionToId(position) {
-        let id = position[0]*this.row_amount + position[1];
+        let id = position[0]*this.col_amount + position[1];
         return id;
     }
     
@@ -33,9 +33,11 @@ class Board {
 
     showPossibleMoves(id) {
         let button_tile = document.getElementById(id);
-        let showed_tiles =  document.getElementsByClassName("showed");
+        let showed_tiles = document.getElementsByClassName("showed");
         let position = this.idToPosition(id);
-        let flag = false
+        console.log(position);
+
+        let flag = false;
         for(let i in showed_tiles) {
             if(showed_tiles[i] == button_tile) {
                 flag = true;
@@ -63,6 +65,7 @@ class Board {
                 button_tile.style.borderColor = "black";
                 button_tile.classList.add("clicked", "showed");
                 let possible_moves = piece.getPossibleMoves([position[0], position[1]], this.board_js);
+                console.log(possible_moves);
                 for(let m in possible_moves) {
                     let tile = this.positionToId(possible_moves[m]);
                     button_tile = document.getElementById(tile);

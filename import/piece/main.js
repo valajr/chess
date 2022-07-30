@@ -89,11 +89,11 @@ class ChessPiece {
             case DIRECTION.RIGHT:
                 return [ move[0], -move[1]];
             case DIRECTION.DOWN:
-                return [-move[1], -move[0]];
+                return [-move[0], -move[1]];
             case DIRECTION.LEFT:
                 return [-move[0],  move[1]];
         }
-        return [move[1], move[0]];
+        return move;
     }
 
     moveInterpreter(moveset) {
@@ -105,7 +105,7 @@ class ChessPiece {
             let ds = move.match(/d/g)?.length || 0; // down
             let ls = move.match(/l/g)?.length || 0; // left
 
-            moves.push([-ls+rs, -us+ds]);
+            moves.push([-us+ds, -ls+rs]);
         }
 
         return moves;
