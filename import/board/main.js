@@ -1,5 +1,6 @@
-let rows = 0;
+let rows    = 0;
 let columns = 0;
+let board;
 
 class Board {
     board_js = [];
@@ -118,23 +119,28 @@ class Board {
     }
 
     placePiece(piece, new_position=null) {
-        let id = piece.getId();
-        let button_tile = document.getElementById(id);
-        let position = this.idToPosition(id);
-
-        if(new_position == null) {
-            button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
-            this.board_js[position[0]][position[1]] = piece;
+        try {
+            let id = piece.getId();
+            let button_tile = document.getElementById(id);
+            let position = this.idToPosition(id);
+    
+            if(new_position == null) {
+                button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
+                this.board_js[position[0]][position[1]] = piece;
+            }
+            else {
+                this.deletePossibleMoves();
+                button_tile.innerHTML = `<img src = ${ChessPiece.getImage("empty", "tile")} width=100%>`;;
+                this.board_js[position[0]][position[1]] = ChessPiece.EMPTY_TILE;
+                let new_id = this.positionToId(new_position);
+                let new_button_tile = document.getElementById(new_id);
+                piece.setId(new_id);
+                new_button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
+                this.board_js[new_position[0]][new_position[1]] = piece;
+            }
         }
-        else {
-            this.deletePossibleMoves();
-            button_tile.innerHTML = `<img src = ${ChessPiece.getImage("empty", "tile")} width=100%>`;;
-            this.board_js[position[0]][position[1]] = ChessPiece.EMPTY_TILE;
-            let new_id = this.positionToId(new_position);
-            let new_button_tile = document.getElementById(new_id);
-            piece.setId(new_id);
-            new_button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
-            this.board_js[new_position[0]][new_position[1]] = piece;
+        catch {
+            console.warn(`Cannot place piece of type '${piece.type}' in [${new_position || this.idToPosition(piece.getId())}].`)
         }
     }
 }
@@ -216,7 +222,9 @@ function classicalChess(board) {
 }
 
 function startBoard(width, height) {
-    let board = new Board(height, width);
+    rows    = height;
+    columns = width;
+    board   = new Board(rows, columns);
     let [white_team, black_team] = classicalChess(board);
     console.log(white_team);
     console.log(black_team);
