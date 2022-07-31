@@ -148,8 +148,9 @@ class ChessPiece {
     addXp(sum) {
         this.xp += sum;
         if(this._last_level !== this.level) {
+            let ll = this._last_level;
             this._last_level = this.level;
-            this.levelUpEvent(this);
+            this.levelUpEvent(this, ll);
         }
     }
 }
