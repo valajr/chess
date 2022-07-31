@@ -80,18 +80,19 @@ class ChessPiece {
         let possibleMove   = (tl, is_attack=false) => existTile(tl) && ((emptyTile(tl) && !is_attack) || (!emptyTile(tl) && canAttack(tl) && is_attack));
         let possible_moves = [];
 
+        let move_is_attack = this._attack_moves === null;
         // iterate static_moves and check every move
         for(let m in this._static_moves) {
             let move = this.rotateMoveByDirection(this._static_moves[m]);
             let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
 
-            if(possibleMove(tile)) {
+            if(possibleMove(tile, move_is_attack)) {
                 possible_moves.push(tile);
             }
         }
 
         // iterate over attack_moves just if is not null, if it is, for sure line_moves + attack_moves == static_moves
-        if(this._attack_moves !== null) {
+        if(!move_is_attack) {
             for(let m in this._attack_moves) {
                 let move = this.rotateMoveByDirection(this._attack_moves[m]);
                 let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
@@ -107,7 +108,7 @@ class ChessPiece {
             let move = this.rotateMoveByDirection(this._line_moves[d]);
             let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
 
-            while(possibleMove(tile)) {
+            while(possibleMove(tile, move_is_attack)) {
                 possible_moves.push(tile);
                 if(!emptyTile(tile) && canAttack(tile)) break;
                 tile = [tile[0] + move[0], tile[1] + move[1]]; // get next tile move based on previous tile
