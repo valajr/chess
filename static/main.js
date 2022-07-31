@@ -12,3 +12,7 @@ function hideMenu() {
     document.getElementById("menuDiv").setAttribute('hidden', true);
     document.getElementById("boardDiv").removeAttribute('hidden');
 }
+
+function hideSkillTree() {
+    document.getElementById("treeDiv").setAttribute('hidden', true);
+}

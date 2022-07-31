@@ -19,6 +19,7 @@ class ChessPiece {
     _line_moves   = [];
     _attack_moves = null;
     _last_level   = 0;
+    _skill_tree = [];
 
     kill_list = [];
     xp        = 0;
@@ -48,6 +49,10 @@ class ChessPiece {
             level++;
         }
         return level;
+    }
+
+    getSkillTree(lvl) {
+        return this._skill_tree[lvl];
     }
 
     levelUpEvent() { }
@@ -152,6 +157,7 @@ class King extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "king", team, direction, "king");
         this._static_moves = this.moveInterpreter(['ul','u','ur','r','dr','d','dl','l']);
+        this._skill_tree = [[], ['uul', 'uu', 'uur'], ['ddl', 'dd', 'ddr'], ['ll', 'dd']];
     }
 }
 
@@ -160,6 +166,7 @@ class Pawn extends ChessPiece {
         super(id, "pawn", team, direction, "pawn");
         this._static_moves = this.moveInterpreter(['u']);
         this._attack_moves = this.moveInterpreter(['ul','ur']);
+        this._skill_tree = [[], ['d'], ['uu'], ['dd']];
     }
 }
 
@@ -167,6 +174,7 @@ class Tower extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "tower", team, direction, "tower");
         this._line_moves = this.moveInterpreter(['u','r','d','l']);
+        this._skill_tree = [[], ['ul'], ['ud'], ['dl', 'dr']];
     }
 }
 
@@ -174,6 +182,7 @@ class Bishop extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "bishop", team, direction, "bishop");
         this._line_moves = this.moveInterpreter(['ul','ur','dl','dr']);
+        this._skill_tree = [[], ['u'], ['d'], ['l', 'd']];
     }
 }
 
@@ -181,6 +190,7 @@ class Knight extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "knight", team, direction, "knight");
         this._static_moves = this.moveInterpreter(['uul','uur','urr','drr','ddr','ddl','dll','ull']);
+        this._skill_tree = [[], ['uu'], ['dd'], ['ll', 'rr']];
     }
 }
 
@@ -188,5 +198,6 @@ class Queen extends ChessPiece {
     constructor(id, team=CHESSTEAM.WHITE, direction=DIRECTION.UP) {
         super(id, "queen", team, direction, "queen");
         this._line_moves = this.moveInterpreter(['u','r','d','l','ul','ur','dl','dr']);
+        this._skill_tree = [[], ['uul', 'uur'], ['ddl', 'ddr'], ['ull', 'dll', 'urr', 'drr']];
     }
 }

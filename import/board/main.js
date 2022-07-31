@@ -179,6 +179,17 @@ class Board {
         }
         catch { }
     }
+
+    findKing(team) {
+        let king = this.queryPieceInBoard(p => p.type == "king" && p.team == team);
+
+        if(king !== null) {
+            return king;
+        }
+        else {
+            console.log("Ganhoou");
+        }
+    }
 }
 
 function classicalChess(board) {
@@ -186,73 +197,116 @@ function classicalChess(board) {
 
     let wking = new King(60, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wking);
+    wking.levelUpEvent = (p) => {createSkillTree(p);};
     let wq = new Queen(59, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wq);
+    wq.levelUpEvent = (p) => {createSkillTree(p);};
     let wb_01 = new Bishop(58, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wb_01);
+    wb_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wb_02 = new Bishop(61, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wb_02);
+    wb_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wk_01 = new Knight(57, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wk_01);
+    wk_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wk_02 = new Knight(62, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wk_02);
+    wk_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wt_01 = new Tower(56, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wt_01);
+    wt_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wt_02 = new Tower(63, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wt_02);
+    wt_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_01 = new Pawn(48, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_01);
+    wp_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_02 = new Pawn(49, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_02);
+    wp_02.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_03 = new Pawn(50, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_03);
+    wp_03.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_04 = new Pawn(51, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_04);
+    wp_04.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_05 = new Pawn(52, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_05);
+    wp_05.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_06 = new Pawn(53, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_06);
+    wp_06.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_07 = new Pawn(54, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_07);
+    wp_07.levelUpEvent = (p) => {createSkillTree(p);};
     let wp_08 = new Pawn(55, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wp_08);
+    wp_08.levelUpEvent = (p) => {createSkillTree(p);};
     white_team.push(wking, wq, wb_01, wb_02, wk_01, wk_02, wt_01, wt_02, wp_01, wp_02, wp_03, wp_04, wp_05, wp_06, wp_07, wp_08);
 
     let black_team = [];
 
     let bking = new King(4, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bking);
+    bking.levelUpEvent = (p) => {createSkillTree(p);};
     let bq = new Queen(3, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bq);
+    bq.levelUpEvent = (p) => {createSkillTree(p);};
     let bb_01 = new Bishop(2, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bb_01);
+    bb_01.levelUpEvent = (p) => {createSkillTree(p);};
     let bb_02 = new Bishop(5, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bb_02);
+    bb_02.levelUpEvent = (p) => {createSkillTree(p);};
     let bk_01 = new Knight(1, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bk_01);
+    bk_01.levelUpEvent = (p) => {createSkillTree(p);};
     let bk_02 = new Knight(6, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bk_02);
+    bk_02.levelUpEvent = (p) => {createSkillTree(p);};
     let bt_01 = new Tower(0, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bt_01);
+    bt_01.levelUpEvent = (p) => {createSkillTree(p);};
     let bt_02 = new Tower(7, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bt_02);
+    bt_02.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_01 = new Pawn(8, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_01);
+    bp_01.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_02 = new Pawn(9, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_02);
+    bp_02.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_03 = new Pawn(10, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_03);
+    bp_03.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_04 = new Pawn(11, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_04);
+    bp_04.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_05 = new Pawn(12, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_05);
+    bp_05.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_06 = new Pawn(13, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_06);
+    bp_06.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_07 = new Pawn(14, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_07);
+    bp_07.levelUpEvent = (p) => {createSkillTree(p);};
     let bp_08 = new Pawn(15, CHESSTEAM.BLACK, DIRECTION.DOWN);
     board.placePiece(bp_08);
+    bp_08.levelUpEvent = (p) => {createSkillTree(p);};
     black_team.push(bking, bq, bb_01, bb_02, bk_01, bk_02, bt_01, bt_02, bp_01, bp_02, bp_03, bp_04, bp_05, bp_06, bp_07, bp_08);
+
+    bp_01.levelUpEvent = (p) => {
+        let new_move = p.getSkillTree(p.level);
+        console.log(new_move);
+        document.getElementById("treeDiv").removeAttribute('hidden');
+        document.getElementById("pieceType").innerHTML = p.type;
+        document.getElementById("pieceLevel").innerHTML = p.level;
+        document.getElementById("pieceTree").innerHTML = new_move;
+        p._static_moves.push(...p.moveInterpreter(new_move));
+    };
+
 
     return [white_team, black_team]
 }
@@ -262,4 +316,14 @@ function startBoard(width, height) {
     columns = width;
     board   = new Board(rows, columns);
     let [white_team, black_team] = classicalChess(board);
+}
+
+function createSkillTree(p) {
+    let new_move = p.getSkillTree(p.level);
+    console.log(new_move);
+    document.getElementById("treeDiv").removeAttribute('hidden');
+    document.getElementById("pieceType").innerHTML = p.type;
+    document.getElementById("pieceLevel").innerHTML = p.level;
+    document.getElementById("pieceTree").innerHTML = new_move;
+    p._static_moves.push(...p.moveInterpreter(new_move));
 }
