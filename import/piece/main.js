@@ -77,7 +77,7 @@ class ChessPiece {
         // check if piece in tile is from another team
         let canAttack = (tl) => boardMapping[tl[0]][tl[1]]?.team !== this.team;
 
-        let possibleMove   = (tl, only_attack) => existTile(tl) && ((emptyTile(tl) && !only_attack) || (!emptyTile(tl) && canAttack(tl)));
+        let possibleMove   = (tl, is_attack=false) => existTile(tl) && ((emptyTile(tl) && !is_attack) || (!emptyTile(tl) && canAttack(tl) && is_attack));
         let possible_moves = [];
 
         // iterate static_moves and check every move
