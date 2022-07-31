@@ -139,6 +139,8 @@ class Board {
                 piece.setId(new_id);
                 new_button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
                 this.board_js[new_position[0]][new_position[1]] = piece;
+
+                this.checkWinCondition();
             }
         }
         catch {
@@ -181,13 +183,19 @@ class Board {
     }
 
     findKing(team) {
-        let king = this.queryPieceInBoard(p => p.type == "king" && p.team == team);
-
-        if(king !== null) {
-            return king;
+        return this.queryPieceInBoard(p => p.type == "king" && p.team == team);
+    }
+    
+    checkWinCondition() {
+        if(this.findKing(CHESSTEAM.BLACK) === null) {
+            alert(`Team White wins!!!!!!`);
+            window.location.reload();
+            return;
         }
-        else {
-            console.log("Ganhoou");
+        if(this.findKing(CHESSTEAM.WHITE) === null) {
+            alert(`Team Black wins!!!!!!`);
+            window.location.reload();
+            return;
         }
     }
 }

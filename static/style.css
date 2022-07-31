@@ -74,3 +74,28 @@ body {
     margin: 0 3px;
     background: radial-gradient(#ffc0c0 9px, transparent 10px);
 }
+
+#treeDiv {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid gray;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    transition: opacity 120ms ease, transform 240ms ease;
+}
+#treeDiv span {
+    font-weight: bold;
+}
+
+#treeDiv[hidden] {
+    visibility: visible;
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+#treeDiv:not(*[hidden]) {
+    opacity: 1;
+    transform: translateX(0);
+}
