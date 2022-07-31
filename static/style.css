@@ -34,6 +34,10 @@ body {
     flex-wrap: wrap;
 }
 
+#menuDiv {
+    margin: 15px;
+}
+
 #menuDiv input {
     height: 26px;
 }
@@ -43,10 +47,30 @@ body {
     padding-right: 15px;
 }
 
-#menuDiv, #boardDiv {
-    margin: 30px;
-    border: 1px solid gray;
+#bKillsDiv {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+#wKillsDiv {
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+#wKillsDiv, #bKillsDiv {
+    text-align: left;
+    padding: 0 16px;
+    height: 23.2px;
+}
+
+#menuDiv, #tableDiv {
     padding: 20px;
+    border: 1px solid gray;
     border-radius: 5px;
     box-shadow: lightgray 2px 2px 4px;
+}
+
+#wKillsDiv > img, #bKillsDiv > img {
+    width: 26px;
+    margin: 0 3px;
+    background: radial-gradient(#ffc0c0 9px, transparent 10px);
 }

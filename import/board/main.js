@@ -130,10 +130,11 @@ class Board {
                 this.board_js[position[0]][position[1]] = piece;
             }
             else {
-                this.deletePossibleMoves();
-                button_tile.innerHTML = `<img src = ${ChessPiece.getImage("empty", "tile")} width=100%>`;;
-                this.board_js[position[0]][position[1]] = ChessPiece.EMPTY_TILE;
                 let new_id = this.positionToId(new_position);
+                this.pieceMoved(piece.getId(), new_id);
+                this.deletePossibleMoves();
+                button_tile.innerHTML = `<img src = ${ChessPiece.getImage("empty", "tile")} width=100%>`;
+                this.board_js[position[0]][position[1]] = ChessPiece.EMPTY_TILE;
                 let new_button_tile = document.getElementById(new_id);
                 piece.setId(new_id);
                 new_button_tile.innerHTML = `<img src = ${piece.image} width=100%>`;
@@ -143,6 +144,40 @@ class Board {
         catch {
             console.warn(`Cannot place piece of type '${piece.type}' in [${new_position || this.idToPosition(piece.getId())}].`)
         }
+    }
+
+    queryPieceInBoard(query) {
+        try {
+            for(let row in this.board_js) {
+                let filtered = this.board_js[row].filter(query)[0];
+                if(filtered !== undefined) {
+                    return filtered;
+                }
+            }
+            return null;
+        }
+        catch {
+            return null;
+        }
+    }
+
+    pieceMoved(fromId, toId) {
+        try {
+            let fromPiece = this.queryPieceInBoard(p => p.getId() == fromId);
+            let toPiece   = this.queryPieceInBoard(p => p.getId() ==   toId);
+
+            if(toPiece !== null) { // moved onto another piece
+                let kTeam = fromPiece.team == CHESSTEAM.WHITE? 'wKillsDiv': 'bKillsDiv';
+        
+                let toPieceImage = document.createElement('img');
+                toPieceImage.src = toPiece.image;
+        
+                document.getElementById(kTeam).appendChild(toPieceImage);
+                fromPiece.kill_list.push(toPiece.type);
+                fromPiece.addXp(ChessPiece.xp_value[toPiece.type]);
+            }
+        }
+        catch { }
     }
 }
 

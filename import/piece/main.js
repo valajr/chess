@@ -2,17 +2,33 @@ const DIRECTION = {'UP': 0, 'RIGHT': 1, 'DOWN': 2, 'LEFT': 3};
 const CHESSTEAM = {'BLACK': "black", 'WHITE': "white"};
 
 class ChessPiece {
-    static EMPTY_TILE = 0;
+    static EMPTY_TILE = new ChessPiece(-1, "empty", "tile");
+    static xp_value = {
+        'empty' : 0,
+        'pawn'  : 10,
+        'tower' : 25,
+        'knight': 25,
+        'bishop': 25,
+        'queen' : 50,
+        'king'  : 100
+    };
+    static getImage = (src, team) => `static/img/${src}_${team}.png`;
+    static xpNeededByLevel = (lv) => 20 + 5 * (2**lv - 1);
 
     _static_moves = [];
     _line_moves   = [];
     _attack_moves = null;
+    _last_level   = 0;
 
-    constructor(id, image, team, direction, type="basic") {
-        this._id = id;
+    kill_list = [];
+    xp        = 0;
+
+    constructor(id, image, team, direction = DIRECTION.UP, type="basic") {
+        this._id  = id;
         this.type = type;
         this.team = team;
-        this.direction = direction;
+
+        this.direction  = direction;
         this._image_src = image;
     }
 
@@ -20,9 +36,21 @@ class ChessPiece {
         return ChessPiece.getImage(this._image_src, this.team);
     }
 
-    static getImage(src, team) {
-        return `static/img/${src}_${team}.png`;
+    set level(level) {
+        let recursiveXp = (lv) => lv < 0? 0: ChessPiece.xpNeededByLevel(lv) + recursiveXp(lv-1);
+        this.xp = recursiveXp(level-1);
     }
+
+    get level() {
+        let aux = this.xp;
+        let level = 0;
+        while((aux -= ChessPiece.xpNeededByLevel(level)) >= 0) {
+            level++;
+        }
+        return level;
+    }
+
+    levelUpEvent() { }
 
     getId() {
         return this._id;
@@ -109,6 +137,14 @@ class ChessPiece {
         }
 
         return moves;
+    }
+
+    addXp(sum) {
+        this.xp += sum;
+        if(this._last_level !== this.level) {
+            this._last_level = this.level;
+            this.levelUpEvent(this);
+        }
     }
 }
 
