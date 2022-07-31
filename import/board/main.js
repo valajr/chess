@@ -212,7 +212,7 @@ function classicalChess(board) {
     wk_01.levelUpEvent = (p) => {createSkillTree(p);};
     let wk_02 = new Knight(62, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wk_02);
-    wk_01.levelUpEvent = (p) => {createSkillTree(p);};
+    wk_02.levelUpEvent = (p) => {createSkillTree(p);};
     let wt_01 = new Tower(56, CHESSTEAM.WHITE, DIRECTION.UP);
     board.placePiece(wt_01);
     wt_01.levelUpEvent = (p) => {createSkillTree(p);};
@@ -297,17 +297,6 @@ function classicalChess(board) {
     bp_08.levelUpEvent = (p) => {createSkillTree(p);};
     black_team.push(bking, bq, bb_01, bb_02, bk_01, bk_02, bt_01, bt_02, bp_01, bp_02, bp_03, bp_04, bp_05, bp_06, bp_07, bp_08);
 
-    bp_01.levelUpEvent = (p) => {
-        let new_move = p.getSkillTree(p.level);
-        console.log(new_move);
-        document.getElementById("treeDiv").removeAttribute('hidden');
-        document.getElementById("pieceType").innerHTML = p.type;
-        document.getElementById("pieceLevel").innerHTML = p.level;
-        document.getElementById("pieceTree").innerHTML = new_move;
-        p._static_moves.push(...p.moveInterpreter(new_move));
-    };
-
-
     return [white_team, black_team]
 }
 
@@ -318,12 +307,40 @@ function startBoard(width, height) {
     let [white_team, black_team] = classicalChess(board);
 }
 
+function translateToHuman(p, list) {
+    direction = p.moveInterpreter(list);
+    let move = '';
+
+    for(let m in direction) {
+        if(direction[m][0] < 0) {
+            move += 'up';
+        }
+        else if(direction[m][0] > 0) {
+            move += 'down';
+        }
+        if(direction[m][1] > 0) {
+            move += 'right';
+        }
+        else if(direction[m][1] < 0) {
+            move += 'left';
+        }
+    }
+    return move;
+}
+
 function createSkillTree(p) {
-    let new_move = p.getSkillTree(p.level);
-    console.log(new_move);
     document.getElementById("treeDiv").removeAttribute('hidden');
     document.getElementById("pieceType").innerHTML = p.type;
-    document.getElementById("pieceLevel").innerHTML = p.level;
-    document.getElementById("pieceTree").innerHTML = new_move;
-    p._static_moves.push(...p.moveInterpreter(new_move));
+
+    if(p.level < 4) {
+        let new_move = p.getSkillTree(p.level);
+        document.getElementById("pieceLevel").innerHTML = p.level;
+        document.getElementById("pieceTree").innerHTML = translateToHuman(p, new_move);
+        p._static_moves.push(...p.moveInterpreter(new_move));
+    }
+    else {
+        document.getElementById("pieceLevel").innerHTML = "maximum";
+        document.getElementById("pieceTree").innerHTML = "none";
+    }
+    setTimeout(hideSkillTree, 5000);
 }
