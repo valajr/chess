@@ -77,16 +77,16 @@ class ChessPiece {
         // check if piece in tile is from another team
         let canAttack = (tl) => boardMapping[tl[0]][tl[1]]?.team !== this.team;
 
-        let possibleMove   = (tl, is_attack=false) => existTile(tl) && ((emptyTile(tl) && !is_attack) || (!emptyTile(tl) && canAttack(tl) && is_attack));
+        let move_is_attack = this._attack_moves === null;
+        let possibleMove   = (tl, is_attack=false) => existTile(tl) && ((emptyTile(tl) && !is_attack) || (!emptyTile(tl) && canAttack(tl) && (is_attack || move_is_attack)));
         let possible_moves = [];
 
-        let move_is_attack = this._attack_moves === null;
         // iterate static_moves and check every move
         for(let m in this._static_moves) {
             let move = this.rotateMoveByDirection(this._static_moves[m]);
             let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
 
-            if(possibleMove(tile, move_is_attack)) {
+            if(possibleMove(tile)) {
                 possible_moves.push(tile);
             }
         }
@@ -108,7 +108,7 @@ class ChessPiece {
             let move = this.rotateMoveByDirection(this._line_moves[d]);
             let tile = [position[0] + move[0], position[1] + move[1]]; // get tile based on given position
 
-            while(possibleMove(tile, move_is_attack)) {
+            while(possibleMove(tile)) {
                 possible_moves.push(tile);
                 if(!emptyTile(tile) && canAttack(tile)) break;
                 tile = [tile[0] + move[0], tile[1] + move[1]]; // get next tile move based on previous tile
