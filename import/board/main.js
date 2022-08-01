@@ -28,6 +28,7 @@ class Board {
         let showed_tiles = document.getElementsByClassName("showed");
         while(showed_tiles.length) {
             showed_tiles[0].style.borderColor = "transparent";
+            showed_tiles[0].setAttribute("disabled", true);
             showed_tiles[0].classList.remove("showed", "clicked");
         }
     }
@@ -48,6 +49,7 @@ class Board {
             let clicked_button = document.getElementsByClassName("clicked");
             if(button_tile == clicked_button[0]) {
                 this.deletePossibleMoves();
+                button_tile.removeAttribute("disabled");
             }
             else {
                 let nodeMap = document.getElementsByClassName("clicked").item(0).attributes;
@@ -70,6 +72,7 @@ class Board {
                     button_tile = document.getElementById(tile);
                     button_tile.style.borderColor = "#4e4e4e";
                     button_tile.classList.add("showed");
+                    button_tile.removeAttribute("disabled");
                 }
             }
         }
