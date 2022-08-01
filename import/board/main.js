@@ -1,6 +1,7 @@
 let rows    = 0;
 let columns = 0;
 let board;
+let turn;
 
 class Board {
     board_js = [];
@@ -141,6 +142,7 @@ class Board {
                 this.board_js[new_position[0]][new_position[1]] = piece;
 
                 this.checkWinCondition();
+                updateTurn();
             }
         }
         catch {
@@ -148,13 +150,26 @@ class Board {
         }
     }
 
-    queryPieceInBoard(query) {
+    queryPieceInBoard(query, all=false) {
         try {
+            let sumResult = [];
             for(let row in this.board_js) {
-                let filtered = this.board_js[row].filter(query)[0];
-                if(filtered !== undefined) {
-                    return filtered;
+                let filtered = this.board_js[row].filter(query);
+
+                if(!all) {
+                    filtered = filtered[0];
+                    if(filtered !== undefined) {
+                        return filtered;
+                    }
                 }
+                else {
+                    if(filtered.length > 0) {
+                        sumResult = [...sumResult, ...filtered];
+                    }
+                }
+            }
+            if(all && sumResult.length > 0) {
+                return sumResult;
             }
             return null;
         }
@@ -312,7 +327,9 @@ function startBoard(width, height) {
     rows    = height;
     columns = width;
     board   = new Board(rows, columns);
-    let [white_team, black_team] = classicalChess(board);
+    classicalChess(board);
+
+    updateTurn(CHESSTEAM.WHITE);
 }
 
 function translateToHuman(p, list) {
@@ -351,4 +368,26 @@ function createSkillTree(p) {
         document.getElementById("pieceTree").innerHTML = "none";
     }
     setTimeout(hideSkillTree, 5000);
+}
+
+function updateTurn(team=null) {
+    if(team !== null) {
+        turn = team;
+    }
+    else {
+        turn = turn == CHESSTEAM.WHITE? CHESSTEAM.BLACK: CHESSTEAM.WHITE;
+    }
+    let to_lock = turn == CHESSTEAM.WHITE? CHESSTEAM.BLACK: CHESSTEAM.WHITE;
+
+    let turn_pieces = board.queryPieceInBoard(p => p.team == turn, true);
+    let lock_pieces = board.queryPieceInBoard(p => p.team == to_lock, true);
+
+    for(let p in turn_pieces) {
+        let pid = turn_pieces[p].getId();
+        document.getElementById(pid).removeAttribute('disabled');
+    }
+    for(let p in lock_pieces) {
+        let pid = lock_pieces[p].getId();
+        document.getElementById(pid).setAttribute('disabled', true);
+    }
 }
